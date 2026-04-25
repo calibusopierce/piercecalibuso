@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pierce Calibuso — IT Support & Graphic Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-0:    #060d1f;
+      --bg-1:    #0b1530;
+      --bg-2:    #101d3e;
+      --surface: rgba(255,255,255,0.04);
+      --surface2: rgba(255,255,255,0.07);
+      --border:  rgba(255,255,255,0.08);
+      --border2: rgba(255,255,255,0.14);
+      --white:   #ffffff;
+      --w80:     rgba(255,255,255,0.80);
+      --w60:     rgba(255,255,255,0.60);
+      --w40:     rgba(255,255,255,0.40);
+      --w15:     rgba(255,255,255,0.15);
+      --w08:     rgba(255,255,255,0.08);
+      --accent:  #4380e2;
+      --accent2: #93c5fd;
+      --green:   #34d399;
+      --amber:   #fbbf24;
+      --red:     #f87171;
+      --purple:  #a78bfa;
+      --font-display: 'Sora', sans-serif;
+      --font-body:    'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-0);
+      color: var(--w60);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── MESH BACKGROUND ── */
+    .mesh {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 50% at 10% 0%, rgba(67,128,226,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 90% 100%, rgba(52,211,153,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 100% 80% at 50% 50%, rgba(6,13,31,1) 40%, transparent 100%);
+    }
+    .mesh::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 3rem;
+      background: rgba(6,13,31,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--white);
+      letter-spacing: -0.03em;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent2); }
+
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--w40);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 0.4rem 0.85rem;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+      background: var(--w08);
+    }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 3rem 5rem;
+      overflow: hidden;
+    }
+
+    .hero-content { max-width: 780px; }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--green);
+      background: rgba(52,211,153,0.1);
+      border: 1px solid rgba(52,211,153,0.25);
+      padding: 0.3rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 800;
+      line-height: 0.92;
+      letter-spacing: -0.05em;
+      color: var(--white);
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .hero-name .accent { color: var(--accent2); }
+
+    .hero-sub {
+      margin-top: 1.75rem;
+      font-size: 1rem;
+      color: var(--w60);
+      max-width: 500px;
+      line-height: 1.8;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.35rem;
+      border-radius: 10px;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: rgba(67,128,226,0.5);
+    }
+    .btn-primary:hover { background: #3370d4; transform: translateY(-1px); }
+
+    .btn-ghost {
+      background: var(--w08);
+      color: var(--w60);
+      border-color: var(--border);
+    }
+    .btn-ghost:hover {
+      background: var(--w15);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    /* ── SECTION WRAPPER ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 5rem 3rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .section-eyebrow::after {
+      content: '';
+      display: block;
+      height: 1px;
+      width: 32px;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.04em;
+      margin-bottom: 2.5rem;
+      line-height: 1.05;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--w60);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      line-height: 1.9;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.4rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .stat-card:hover {
+      border-color: var(--border2);
+      background: var(--surface2);
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--accent2);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--w40);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 0.4rem;
+    }
+
+    /* ── EXPERIENCE ── */
+    .timeline {
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.5rem;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+      padding-left: 2rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.5rem;
+      top: 0.6rem;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      border: 2px solid var(--bg-0);
+      outline: 1px solid var(--accent);
+    }
+
+    .timeline-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-company {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .timeline-date {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent2);
+      background: rgba(67,128,226,0.12);
+      border: 1px solid rgba(67,128,226,0.25);
+      padding: 0.2rem 0.75rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .timeline-role {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--w40);
+      margin-bottom: 1rem;
+    }
+
+    .timeline-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .timeline-list li {
+      font-size: 0.85rem;
+      color: var(--w60);
+      padding-left: 1.1rem;
+      position: relative;
+      line-height: 1.7;
+    }
+
+    .timeline-list li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--accent2);
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .skill-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem 1.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      cursor: default;
+    }
+
+    .skill-item:hover {
+      background: var(--surface2);
+      border-color: var(--border2);
+      transform: translateY(-2px);
+    }
+
+    .skill-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(67,128,226,0.15);
+      border: 1px solid rgba(67,128,226,0.25);
+      color: var(--accent2);
+      font-size: 0.78rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+      flex-shrink: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .skill-name {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1.75rem;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(67,128,226,0.05), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: inherit;
+    }
+
+    .project-card:hover {
+      border-color: rgba(67,128,226,0.4);
+      background: rgba(255,255,255,0.06);
+      transform: translateY(-3px);
+    }
+
+    .project-card:hover::before { opacity: 1; }
+
+    .project-lang {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      background: rgba(67,128,226,0.12);
+      border: 1px solid rgba(67,128,226,0.2);
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      width: fit-content;
+    }
+
+    .project-name {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.25;
+    }
+
+    .project-desc {
+      font-size: 0.82rem;
+      color: var(--w40);
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .project-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent2);
+      opacity: 0.6;
+      transition: opacity 0.2s, gap 0.2s;
+    }
+
+    .project-card:hover .project-arrow {
+      opacity: 1;
+      gap: 0.55rem;
+    }
+
+    /* ── CERTS ── */
+    .certs-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .cert-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.35rem 1.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .cert-item:hover {
+      border-color: var(--border2);
+      background: var(--surface2);
+    }
+
+    .cert-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--white);
+    }
+
+    .cert-issuer {
+      font-size: 0.75rem;
+      color: var(--w40);
+      margin-top: 0.2rem;
+    }
+
+    .cert-year {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--accent2);
+      background: rgba(67,128,226,0.12);
+      border: 1px solid rgba(67,128,226,0.2);
+      padding: 0.2rem 0.75rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    /* ── CONTACT ── */
+    #contact { text-align: center; }
+
+    .contact-big {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5.5vw, 4.5rem);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.05em;
+      line-height: 0.95;
+      margin-bottom: 1.25rem;
+    }
+
+    .contact-big span { color: var(--accent2); }
+
+    .contact-sub {
+      color: var(--w40);
+      font-size: 0.9rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.6rem 1.25rem;
+      background: var(--w08);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--w60);
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .contact-link:hover {
+      background: var(--w15);
+      border-color: rgba(67,128,226,0.4);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 1.75rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--w40);
+    }
+
+    footer span { color: var(--white); font-weight: 600; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      section { padding: 3.5rem 1.25rem; }
+      #hero { padding: 6.5rem 1.25rem 3rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .timeline-meta { flex-direction: column; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="mesh"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">PCC<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="works.html">Works</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="border-top: none;">
+  <div class="hero-content">
+    <div class="hero-tag">Available for opportunities</div>
+    <h1 class="hero-name">
+      Pierce<br/>
+      <span class="accent">Calibuso</span>
+    </h1>
+    <p class="hero-sub">
+      IT Support Technician & Graphic Designer based in the Philippines.
+      I keep systems running and brands looking sharp — often at the same time.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+      <a href="#experience" class="btn btn-ghost">View experience</a>
+      <a href="https://github.com/calibusopierce" target="_blank" rel="noopener" class="btn btn-ghost">GitHub ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-eyebrow">01 — About</div>
+  <h2 class="section-title">The person behind<br/>the terminal.</h2>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>
+        I'm Pierce, an IT Support Technician and Graphic Designer with hands-on experience in system administration, network troubleshooting, and commercial graphic design.
+      </p>
+      <p>
+        At Urban Tradewell Corporation, I wear multiple hats — managing biometric and face recognition systems via IVMS-4200, providing remote and in-person technical support, and designing visual branding for clients like Chuables Bakeshop, HappyWe, and Koonlin.
+      </p>
+      <p>
+        I graduated with Academic Distinction from Dalubhasaan ng Lungsod ng Lucena with a BS in Information Technology, and hold a Civil Service Professional Level Eligibility.
+      </p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-card">
+        <div class="stat-num">2+</div>
+        <div class="stat-label">Years of experience</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">4+</div>
+        <div class="stat-label">Design clients</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">12</div>
+        <div class="stat-label">GitHub repos</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-eyebrow">02 — Experience</div>
+  <h2 class="section-title">Where I've been.</h2>
+  <div class="timeline">
+
+    <div class="timeline-item reveal">
+      <div class="timeline-meta">
+        <div>
+          <div class="timeline-company">Urban Tradewell Corporation</div>
+          <div class="timeline-role">IT Support / Graphic Designer · Lucena City</div>
+        </div>
+        <div class="timeline-date">Sep 2023 — Present</div>
+      </div>
+      <ul class="timeline-list">
+        <li>Conducts QA testing for newly implemented system functionalities, identifying and resolving issues for optimal reliability.</li>
+        <li>Manages face recognition devices using IVMS-4200, overseeing system administration and user access control.</li>
+        <li>Designs visual graphics for clients including Chuables Bakeshop, HappyWe, Koonlin, and Urban Tradewell Corporation.</li>
+        <li>Provides technical support via remote access and in-person assistance across multiple departments.</li>
+        <li>Processes remittance transactions using company software with accuracy and timely data handling.</li>
+        <li>Supports front-end and back-end development, contributing to UI design and server-side functionalities.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-meta">
+        <div>
+          <div class="timeline-company">Philippine National Police</div>
+          <div class="timeline-role">IT Support / Data Encoder — Intern · Lucena City</div>
+        </div>
+        <div class="timeline-date">Mar 2023 — Jun 2023</div>
+      </div>
+      <ul class="timeline-list">
+        <li>Performed network and computer troubleshooting to ensure optimal system performance and user support.</li>
+        <li>Assisted in implementing technical procedures for managing confidential documents, enhancing efficiency and security.</li>
+        <li>Created audio-visual presentations for departmental projects to enhance communication and outreach.</li>
+        <li>Installed software applications and offered technical guidance to users for smooth operation.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-eyebrow">03 — Skills</div>
+  <h2 class="section-title">Tools of the trade.</h2>
+  <div class="skills-grid reveal">
+    <div class="skill-item"><div class="skill-icon">Py</div><span class="skill-name">Python</span></div>
+    <div class="skill-item"><div class="skill-icon">VB</div><span class="skill-name">Visual Basic.NET</span></div>
+    <div class="skill-item"><div class="skill-icon">&lt;/&gt;</div><span class="skill-name">HTML / CSS</span></div>
+    <div class="skill-item"><div class="skill-icon">PHP</div><span class="skill-name">PHP</span></div>
+    <div class="skill-item"><div class="skill-icon">SQL</div><span class="skill-name">SQL</span></div>
+    <div class="skill-item"><div class="skill-icon">Ps</div><span class="skill-name">Adobe Photoshop</span></div>
+    <div class="skill-item"><div class="skill-icon">IV</div><span class="skill-name">IVMS-4200</span></div>
+    <div class="skill-item"><div class="skill-icon">IT</div><span class="skill-name">IT Support</span></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-eyebrow">04 — Projects</div>
+  <h2 class="section-title">Things I've built.</h2>
+  <div class="projects-grid">
+
+    <a class="project-card reveal" href="https://github.com/calibusopierce/TWM" target="_blank" rel="noopener">
+      <div class="project-lang">PHP ★ 1</div>
+      <div class="project-name">Trade Workflow Manager (TWM)</div>
+      <div class="project-desc">Built to support real-world company workflows — enabling efficient data handling, real-time monitoring, and improved operational decision-making.</div>
+      <div class="project-arrow">View on GitHub →</div>
+    </a>
+
+    <a class="project-card reveal" href="https://github.com/calibusopierce/ebook-website" target="_blank" rel="noopener">
+      <div class="project-lang">HTML</div>
+      <div class="project-name">eBook Website</div>
+      <div class="project-desc">A clean, structured HTML-based website for digital book presentation and browsing.</div>
+      <div class="project-arrow">View on GitHub →</div>
+    </a>
+
+    <a class="project-card reveal" href="https://github.com/calibusopierce/Calibuso-footwearDBSystem" target="_blank" rel="noopener">
+      <div class="project-lang">Database</div>
+      <div class="project-name">Footwear DB System</div>
+      <div class="project-desc">A database management system built for Advanced Database Systems coursework, modeling inventory and transactions for a footwear business.</div>
+      <div class="project-arrow">View on GitHub →</div>
+    </a>
+
+    <a class="project-card reveal" href="https://github.com/calibusopierce/CSS-txt-Portrait-Effects" target="_blank" rel="noopener">
+      <div class="project-lang">HTML / CSS</div>
+      <div class="project-name">CSS Text Portrait Effects</div>
+      <div class="project-desc">Creative CSS experiments — building visual portraits using text and pure CSS styling techniques.</div>
+      <div class="project-arrow">View on GitHub →</div>
+    </a>
+
+    <a class="project-card reveal" href="https://github.com/calibusopierce/bakeryshop" target="_blank" rel="noopener">
+      <div class="project-lang">Python</div>
+      <div class="project-name">Bakery Shop System</div>
+      <div class="project-desc">A simple transactional system for bakery operations — built in Python for point-of-sale and inventory tracking.</div>
+      <div class="project-arrow">View on GitHub →</div>
+    </a>
+
+    <a class="project-card reveal" href="https://github.com/calibusopierce/Localfoodhub" target="_blank" rel="noopener">
+      <div class="project-lang">CSS / PWA</div>
+      <div class="project-name">Local Food Hub</div>
+      <div class="project-desc">A progressive web application connecting local food vendors and consumers — built with PWA standards for offline-capable performance.</div>
+      <div class="project-arrow">View on GitHub →</div>
+    </a>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-eyebrow">05 — Education</div>
+  <h2 class="section-title">Where I learned.</h2>
+  <div class="timeline">
+
+    <div class="timeline-item reveal">
+      <div class="timeline-meta">
+        <div>
+          <div class="timeline-company">Dalubhasaan ng Lungsod ng Lucena</div>
+          <div class="timeline-role">Bachelor of Science in Information Technology · Lucena City</div>
+        </div>
+        <div class="timeline-date">2019 — 2023</div>
+      </div>
+      <ul class="timeline-list">
+        <li>Graduated with <strong style="color:var(--accent2)">Academic Distinction</strong> — recognized for outstanding academic performance.</li>
+        <li>Completed coursework covering software development, database systems, networking, and systems analysis.</li>
+        <li>Developed full-stack projects and database systems as part of capstone and advanced course requirements.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-meta">
+        <div>
+          <div class="timeline-company">Manuel S. Enverga University Foundation</div>
+          <div class="timeline-role">Senior High School — ICT Strand · Lucena City</div>
+        </div>
+        <div class="timeline-date">2017 — 2019</div>
+      </div>
+      <ul class="timeline-list">
+        <li>Completed the ICT (Information and Communications Technology) strand with a focus on computer systems and design.</li>
+        <li>Earned <strong style="color:var(--accent2)">Visual Graphics Design NC III</strong> certification through TESDA accreditation.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTS -->
+<section id="certs">
+  <div class="section-eyebrow">06 — Credentials</div>
+  <h2 class="section-title">Earned, not given.</h2>
+  <div class="certs-list reveal">
+    <div class="cert-item">
+      <div>
+        <div class="cert-name">Civil Service Professional Level Eligibility</div>
+        <div class="cert-issuer">Philippine Civil Service Commission</div>
+      </div>
+      <div class="cert-year">2024</div>
+    </div>
+    <div class="cert-item">
+      <div>
+        <div class="cert-name">Academic Distinction</div>
+        <div class="cert-issuer">Dalubhasaan ng Lungsod ng Lucena — BS Information Technology</div>
+      </div>
+      <div class="cert-year">2023</div>
+    </div>
+    <div class="cert-item">
+      <div>
+        <div class="cert-name">Visual Graphics Design NCIII</div>
+        <div class="cert-issuer">Manuel S. Enverga University Foundation</div>
+      </div>
+      <div class="cert-year">2019</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-eyebrow" style="justify-content:center;">07 — Contact</div>
+  <div class="contact-big reveal">
+    Let's work<br/><span>together.</span>
+  </div>
+  <p class="contact-sub reveal">Open to new opportunities, freelance, and collaborations.</p>
+  <div class="contact-links reveal">
+    <a href="mailto:calibusopierce@gmail.com" class="contact-link">✉ Email me</a>
+    <a href="https://github.com/calibusopierce" target="_blank" rel="noopener" class="contact-link">⌥ GitHub</a>
+    <a href="https://www.linkedin.com/in/pierce-crisver-calibuso-309570256/" target="_blank" rel="noopener" class="contact-link">↗ LinkedIn</a>
+    <a href="https://www.facebook.com/piercecalibuso16" target="_blank" rel="noopener" class="contact-link">⊕ Facebook</a>
+    <a href="tel:+639942089006" class="contact-link">☏ Call me</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>© 2026 <span>Pierce Crisver D. Calibuso</span> — All rights reserved.</div>
+  <div>Purok 2, Barangay Limbon, Sariaya, Quezon · PH</div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(
+    (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+  );
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

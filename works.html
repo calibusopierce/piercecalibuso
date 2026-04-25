@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Works — Pierce Calibuso</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-0:    #060d1f;
+      --bg-1:    #0b1530;
+      --bg-2:    #101d3e;
+      --surface: rgba(255,255,255,0.04);
+      --surface2: rgba(255,255,255,0.07);
+      --border:  rgba(255,255,255,0.08);
+      --border2: rgba(255,255,255,0.14);
+      --white:   #ffffff;
+      --w80:     rgba(255,255,255,0.80);
+      --w60:     rgba(255,255,255,0.60);
+      --w40:     rgba(255,255,255,0.40);
+      --w15:     rgba(255,255,255,0.15);
+      --w08:     rgba(255,255,255,0.08);
+      --accent:  #4380e2;
+      --accent2: #93c5fd;
+      --green:   #34d399;
+      --amber:   #fbbf24;
+      --font-display: 'Sora', sans-serif;
+      --font-body:    'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-0);
+      color: var(--w60);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ── MESH BACKGROUND ── */
+    .mesh {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 50% at 10% 0%, rgba(67,128,226,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 90% 100%, rgba(52,211,153,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 100% 80% at 50% 50%, rgba(6,13,31,1) 40%, transparent 100%);
+    }
+    .mesh::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 3rem;
+      background: rgba(6,13,31,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--white);
+      letter-spacing: -0.03em;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent2); }
+
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--w40);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 0.4rem 0.85rem;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--white);
+      background: var(--w08);
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      position: relative;
+      z-index: 1;
+      padding: 9rem 3rem 3.5rem;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .page-header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .page-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 0.6rem;
+    }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.05em;
+      line-height: 0.92;
+    }
+
+    .page-title span { color: var(--accent2); }
+
+    .page-meta {
+      font-size: 0.88rem;
+      color: var(--w40);
+      max-width: 320px;
+      line-height: 1.8;
+      text-align: right;
+    }
+
+    /* ── TABS ── */
+    .tabs-wrapper {
+      position: sticky;
+      top: 57px;
+      z-index: 90;
+      background: rgba(6,13,31,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      padding: 0 3rem;
+    }
+
+    .tab-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 1rem 0;
+      margin-right: 2.5rem;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--w40);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      position: relative;
+      top: 1px;
+    }
+
+    .tab-btn.active {
+      color: var(--white);
+      border-bottom-color: var(--accent);
+    }
+
+    .tab-btn:hover { color: var(--white); }
+
+    .tab-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      opacity: 0.4;
+    }
+
+    .tab-btn.active .tab-dot { opacity: 1; }
+
+    /* ── TAB PANELS ── */
+    .tab-panel { display: none; position: relative; z-index: 1; }
+    .tab-panel.active { display: block; }
+
+    /* ═══════════════════════════════════
+       IT / PROGRAMMING TAB
+    ═══════════════════════════════════ */
+    #panel-it { padding: 3rem; }
+
+    /* Project accordion card */
+    .doc-project {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .doc-project:hover { border-color: var(--border2); }
+    .doc-project.open { border-color: rgba(67,128,226,0.35); }
+
+    .doc-project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 1.5rem;
+      cursor: pointer;
+      gap: 1rem;
+      user-select: none;
+      transition: background 0.15s;
+    }
+
+    .doc-project-header:hover { background: var(--surface2); }
+
+    .doc-project-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .doc-lang-badge {
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      background: rgba(67,128,226,0.14);
+      border: 1px solid rgba(67,128,226,0.25);
+      padding: 0.2rem 0.65rem;
+      border-radius: 7px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .doc-project-name {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .doc-project-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-shrink: 0;
+    }
+
+    .doc-status {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid;
+    }
+
+    .doc-status.active-status  { color: var(--green); border-color: rgba(52,211,153,0.35); background: rgba(52,211,153,0.08); }
+    .doc-status.school-status  { color: var(--accent2); border-color: rgba(147,197,253,0.3); background: rgba(67,128,226,0.1); }
+    .doc-status.personal-status{ color: var(--amber); border-color: rgba(251,191,36,0.3); background: rgba(251,191,36,0.08); }
+
+    .doc-toggle {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--w08);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: var(--w40);
+      transition: transform 0.3s, color 0.2s, background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .doc-project.open .doc-toggle {
+      transform: rotate(45deg);
+      color: var(--accent2);
+      background: rgba(67,128,226,0.15);
+      border-color: rgba(67,128,226,0.3);
+    }
+
+    .doc-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .doc-project.open .doc-body { max-height: 1000px; }
+
+    .doc-body-inner {
+      border-top: 1px solid var(--border);
+      padding: 1.75rem 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+
+    .doc-section-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 0.7rem;
+    }
+
+    .doc-description {
+      font-size: 0.85rem;
+      color: var(--w60);
+      line-height: 1.85;
+    }
+
+    .doc-tech-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tech-tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.2rem 0.7rem;
+      border-radius: 6px;
+      background: var(--w08);
+      border: 1px solid var(--border);
+      color: var(--w60);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .tech-tag:hover { border-color: rgba(67,128,226,0.4); color: var(--accent2); }
+
+    .doc-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .doc-features li {
+      font-size: 0.82rem;
+      color: var(--w60);
+      padding-left: 1.1rem;
+      position: relative;
+      line-height: 1.65;
+    }
+
+    .doc-features li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--accent2);
+    }
+
+    .doc-links {
+      display: flex;
+      gap: 0.65rem;
+      margin-top: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .doc-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1.1rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--w08);
+      color: var(--w60);
+      transition: all 0.2s;
+    }
+
+    .doc-link:hover {
+      background: var(--w15);
+      border-color: var(--border2);
+      color: var(--white);
+    }
+
+    .doc-link.primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: rgba(67,128,226,0.5);
+    }
+    .doc-link.primary:hover { background: #3370d4; }
+
+    /* ═══════════════════════════════════
+       GRAPHIC DESIGN TAB
+    ═══════════════════════════════════ */
+    #panel-design { padding: 3rem; }
+
+    .filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .filter-btn {
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.4rem 1rem;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--w08);
+      color: var(--w40);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-body);
+    }
+
+    .filter-btn:hover {
+      background: var(--w15);
+      color: var(--white);
+    }
+
+    .filter-btn.active {
+      background: var(--accent);
+      border-color: rgba(67,128,226,0.5);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Masonry gallery */
+    .gallery-grid {
+      columns: 3;
+      column-gap: 1rem;
+    }
+
+    @media (max-width: 1100px) { .gallery-grid { columns: 2; } }
+    @media (max-width: 600px)  { .gallery-grid { columns: 1; } }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: border-color 0.25s, transform 0.2s;
+    }
+
+    .gallery-item:hover {
+      border-color: rgba(67,128,226,0.45);
+      transform: translateY(-2px);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      border-radius: inherit;
+      transition: transform 0.4s ease, filter 0.3s;
+      filter: brightness(0.9);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.03);
+      filter: brightness(1);
+    }
+
+    .gallery-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: var(--w15);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .gallery-placeholder.tall   { aspect-ratio: 3/4; }
+    .gallery-placeholder.wide   { aspect-ratio: 16/9; }
+    .gallery-placeholder.square { aspect-ratio: 1/1; }
+
+    .gallery-item:hover .gallery-placeholder { background: var(--surface2); }
+
+    .gallery-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(6,13,31,0.95));
+      padding: 2rem 1.25rem 1.25rem;
+      transform: translateY(4px);
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      border-radius: 0 0 14px 14px;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gallery-item-title {
+      font-family: var(--font-display);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+
+    .gallery-item-client {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent2);
+    }
+
+    /* multi-badge */
+    .multi-badge {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      background: rgba(6,13,31,0.85);
+      border: 1px solid var(--border2);
+      border-radius: 999px;
+      color: var(--accent2);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.55rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(12px);
+    }
+
+    .lightbox-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1020px;
+      max-height: 96vh;
+      display: flex;
+      flex-direction: column;
+      padding: 0 1.5rem;
+      animation: lbFadeIn 0.2s ease;
+    }
+
+    @keyframes lbFadeIn {
+      from { opacity: 0; transform: scale(0.97); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .lightbox-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0 0.75rem;
+      flex-shrink: 0;
+      gap: 1rem;
+    }
+
+    .lightbox-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .lightbox-client {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-top: 0.15rem;
+    }
+
+    .lb-counter {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--w40);
+      min-width: 40px;
+      text-align: right;
+    }
+
+    .lightbox-close {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--w08);
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      color: var(--w60);
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.35rem 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .lightbox-close:hover {
+      background: var(--w15);
+      color: var(--white);
+    }
+
+    .lb-stage {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .lb-img-wrap {
+      width: 100%;
+      max-height: 62vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lb-img {
+      max-width: 100%;
+      max-height: 62vh;
+      object-fit: contain;
+      display: block;
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+    }
+
+    .lightbox-placeholder {
+      width: 100%;
+      height: 50vh;
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.75rem;
+      color: var(--w40);
+      font-size: 0.78rem;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .lb-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(6,13,31,0.8);
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+      color: var(--w40);
+      font-size: 1rem;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      z-index: 2;
+    }
+
+    .lb-prev { left: -52px; }
+    .lb-next { right: -52px; }
+    .lb-arrow:hover {
+      border-color: rgba(67,128,226,0.4);
+      color: var(--accent2);
+      background: rgba(6,13,31,0.95);
+    }
+
+    .lb-thumbs {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 0.75rem 0 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .lb-thumb {
+      width: 52px;
+      height: 38px;
+      object-fit: cover;
+      border: 2px solid transparent;
+      border-radius: 6px;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: all 0.2s;
+      display: block;
+    }
+
+    .lb-thumb:hover { opacity: 0.85; }
+    .lb-thumb.active { border-color: var(--accent); opacity: 1; }
+
+    .lb-thumb-empty {
+      width: 52px;
+      height: 38px;
+      background: var(--surface);
+      border: 2px solid transparent;
+      border-radius: 6px;
+      cursor: pointer;
+      opacity: 0.5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: var(--w40);
+      transition: all 0.2s;
+    }
+
+    .lb-thumb-empty:hover { opacity: 0.85; }
+    .lb-thumb-empty.active { border-color: var(--accent); opacity: 1; }
+
+    .lb-card-nav {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.6rem 0 0.75rem;
+      border-top: 1px solid var(--border);
+      margin-top: 0.25rem;
+      flex-shrink: 0;
+    }
+
+    .lb-card-nav button {
+      background: none;
+      border: none;
+      color: var(--w40);
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 0.3rem 0;
+      transition: color 0.2s;
+    }
+
+    .lb-card-nav button:hover { color: var(--accent2); }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 1.75rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--w40);
+    }
+
+    footer span { color: var(--white); font-weight: 600; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      .page-header { padding: 7rem 1.25rem 2.5rem; }
+      .page-meta { text-align: left; }
+      .tabs-wrapper { padding: 0 1.25rem; }
+      #panel-it, #panel-design { padding: 2rem 1.25rem; }
+      .doc-body-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="mesh"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="portfolio.html" class="nav-logo">PCC<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="portfolio.html">Home</a></li>
+    <li><a href="portfolio.html#about">About</a></li>
+    <li><a href="portfolio.html#experience">Experience</a></li>
+    <li><a href="works.html" class="active">Works</a></li>
+    <li><a href="portfolio.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div>
+      <div class="page-eyebrow">Portfolio — All Works</div>
+      <h1 class="page-title">My<br/><span>Works.</span></h1>
+    </div>
+    <div class="page-meta">
+      A collection of IT/programming projects and graphic design work I've built and crafted over the years.
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-wrapper">
+  <button class="tab-btn active" data-tab="it">
+    <span class="tab-dot"></span> IT &amp; Programming
+  </button>
+  <button class="tab-btn" data-tab="design">
+    <span class="tab-dot"></span> Graphic Design
+  </button>
+</div>
+
+<!-- ═══════════════════════════════════
+     TAB: IT & PROGRAMMING
+═══════════════════════════════════ -->
+<div id="panel-it" class="tab-panel active">
+
+  <!-- TWM -->
+  <div class="doc-project reveal">
+    <div class="doc-project-header" onclick="toggleDoc(this)">
+      <div class="doc-project-left">
+        <span class="doc-lang-badge">PHP</span>
+        <span class="doc-project-name">Trade Workflow Manager (TWM)</span>
+      </div>
+      <div class="doc-project-right">
+        <span class="doc-status active-status">Work Project</span>
+        <span class="doc-toggle">+</span>
+      </div>
+    </div>
+    <div class="doc-body">
+      <div class="doc-body-inner">
+        <div>
+          <div class="doc-section-title">Overview</div>
+          <p class="doc-description">
+            A full-stack workflow management system built to support real-world company operations at Urban Tradewell Corporation. Designed to handle efficient data management, real-time operational monitoring, and streamlined decision-making across departments.
+          </p>
+          <div class="doc-links">
+            <a href="https://github.com/calibusopierce/TWM" target="_blank" rel="noopener" class="doc-link primary">↗ View on GitHub</a>
+          </div>
+        </div>
+        <div>
+          <div class="doc-section-title">Tech Stack</div>
+          <div class="doc-tech-list">
+            <span class="tech-tag">PHP</span>
+            <span class="tech-tag">MySQL / SQL</span>
+            <span class="tech-tag">HTML / CSS</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+          <div class="doc-section-title">Key Features</div>
+          <ul class="doc-features">
+            <li>Real-time operational data monitoring dashboard</li>
+            <li>Multi-user access with role-based permissions</li>
+            <li>Transaction and remittance processing module</li>
+            <li>Document and record management system</li>
+            <li>QA testing integration for system reliability</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOCAL FOOD HUB -->
+  <div class="doc-project reveal">
+    <div class="doc-project-header" onclick="toggleDoc(this)">
+      <div class="doc-project-left">
+        <span class="doc-lang-badge">CSS</span>
+        <span class="doc-project-name">Local Food Hub</span>
+      </div>
+      <div class="doc-project-right">
+        <span class="doc-status personal-status">Personal</span>
+        <span class="doc-toggle">+</span>
+      </div>
+    </div>
+    <div class="doc-body">
+      <div class="doc-body-inner">
+        <div>
+          <div class="doc-section-title">Overview</div>
+          <p class="doc-description">
+            A progressive web application (PWA) designed to connect local food vendors and consumers. Built with offline-capable functionality and modern web standards, making local food discovery accessible even without a stable connection.
+          </p>
+          <div class="doc-links">
+            <a href="https://github.com/calibusopierce/Localfoodhub" target="_blank" rel="noopener" class="doc-link primary">↗ View on GitHub</a>
+          </div>
+        </div>
+        <div>
+          <div class="doc-section-title">Tech Stack</div>
+          <div class="doc-tech-list">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">PWA / Service Worker</span>
+          </div>
+          <div class="doc-section-title">Key Features</div>
+          <ul class="doc-features">
+            <li>Progressive Web App with offline support</li>
+            <li>Vendor and consumer-facing interface</li>
+            <li>Mobile-first responsive design</li>
+            <li>Local food listing and discovery</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EBOOK WEBSITE -->
+  <div class="doc-project reveal">
+    <div class="doc-project-header" onclick="toggleDoc(this)">
+      <div class="doc-project-left">
+        <span class="doc-lang-badge">HTML</span>
+        <span class="doc-project-name">eBook Website</span>
+      </div>
+      <div class="doc-project-right">
+        <span class="doc-status school-status">Academic</span>
+        <span class="doc-toggle">+</span>
+      </div>
+    </div>
+    <div class="doc-body">
+      <div class="doc-body-inner">
+        <div>
+          <div class="doc-section-title">Overview</div>
+          <p class="doc-description">
+            A structured, static website for digital book browsing and presentation. Built with clean semantic HTML to organize and display eBook content in a readable, navigable format.
+          </p>
+          <div class="doc-links">
+            <a href="https://github.com/calibusopierce/ebook-website" target="_blank" rel="noopener" class="doc-link primary">↗ View on GitHub</a>
+          </div>
+        </div>
+        <div>
+          <div class="doc-section-title">Tech Stack</div>
+          <div class="doc-tech-list">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+          </div>
+          <div class="doc-section-title">Key Features</div>
+          <ul class="doc-features">
+            <li>Semantic HTML structure for accessibility</li>
+            <li>Clean, readable typographic layout</li>
+            <li>Organized chapter and section navigation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTWEAR DB -->
+  <div class="doc-project reveal">
+    <div class="doc-project-header" onclick="toggleDoc(this)">
+      <div class="doc-project-left">
+        <span class="doc-lang-badge">DB</span>
+        <span class="doc-project-name">Footwear DB System</span>
+      </div>
+      <div class="doc-project-right">
+        <span class="doc-status school-status">Academic</span>
+        <span class="doc-toggle">+</span>
+      </div>
+    </div>
+    <div class="doc-body">
+      <div class="doc-body-inner">
+        <div>
+          <div class="doc-section-title">Overview</div>
+          <p class="doc-description">
+            A database management system built for Advanced Database Systems coursework, modeling inventory and sales transactions for a footwear retail business.
+          </p>
+          <div class="doc-links">
+            <a href="https://github.com/calibusopierce/Calibuso-footwearDBSystem" target="_blank" rel="noopener" class="doc-link primary">↗ View on GitHub</a>
+          </div>
+        </div>
+        <div>
+          <div class="doc-section-title">Tech Stack</div>
+          <div class="doc-tech-list">
+            <span class="tech-tag">SQL</span>
+            <span class="tech-tag">Database Design</span>
+          </div>
+          <div class="doc-section-title">Key Features</div>
+          <ul class="doc-features">
+            <li>Normalized relational database schema</li>
+            <li>Inventory tracking and stock management</li>
+            <li>Sales transaction recording and reporting</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CSS PORTRAIT -->
+  <div class="doc-project reveal">
+    <div class="doc-project-header" onclick="toggleDoc(this)">
+      <div class="doc-project-left">
+        <span class="doc-lang-badge">CSS</span>
+        <span class="doc-project-name">CSS Text Portrait Effects</span>
+      </div>
+      <div class="doc-project-right">
+        <span class="doc-status personal-status">Personal</span>
+        <span class="doc-toggle">+</span>
+      </div>
+    </div>
+    <div class="doc-body">
+      <div class="doc-body-inner">
+        <div>
+          <div class="doc-section-title">Overview</div>
+          <p class="doc-description">
+            Creative CSS experiments building visual portraits using text and pure CSS styling techniques — exploring the intersection of typography and visual art.
+          </p>
+          <div class="doc-links">
+            <a href="https://github.com/calibusopierce/CSS-txt-Portrait-Effects" target="_blank" rel="noopener" class="doc-link primary">↗ View on GitHub</a>
+          </div>
+        </div>
+        <div>
+          <div class="doc-section-title">Tech Stack</div>
+          <div class="doc-tech-list">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+          </div>
+          <div class="doc-section-title">Key Features</div>
+          <ul class="doc-features">
+            <li>Pure CSS visual rendering — no canvas or SVG</li>
+            <li>Typography-as-art technique</li>
+            <li>Layered text shadows and blend modes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BAKERY -->
+  <div class="doc-project reveal">
+    <div class="doc-project-header" onclick="toggleDoc(this)">
+      <div class="doc-project-left">
+        <span class="doc-lang-badge">Py</span>
+        <span class="doc-project-name">Bakery Shop System</span>
+      </div>
+      <div class="doc-project-right">
+        <span class="doc-status school-status">Academic</span>
+        <span class="doc-toggle">+</span>
+      </div>
+    </div>
+    <div class="doc-body">
+      <div class="doc-body-inner">
+        <div>
+          <div class="doc-section-title">Overview</div>
+          <p class="doc-description">
+            A Python-based transactional system simulating bakery point-of-sale operations. Handles order entry, inventory deduction, and basic sales reporting through a terminal interface.
+          </p>
+          <div class="doc-links">
+            <a href="https://github.com/calibusopierce/bakeryshop" target="_blank" rel="noopener" class="doc-link primary">↗ View on GitHub</a>
+          </div>
+        </div>
+        <div>
+          <div class="doc-section-title">Tech Stack</div>
+          <div class="doc-tech-list">
+            <span class="tech-tag">Python</span>
+          </div>
+          <div class="doc-section-title">Key Features</div>
+          <ul class="doc-features">
+            <li>Product menu and order entry system</li>
+            <li>Real-time inventory tracking</li>
+            <li>Receipt generation and daily sales summary</li>
+            <li>Simple CLI user interface</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /panel-it -->
+
+<!-- ═══════════════════════════════════
+     TAB: GRAPHIC DESIGN
+═══════════════════════════════════ -->
+<div id="panel-design" class="tab-panel">
+
+  <div class="filter-bar reveal">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="chuables">Chuables Bakeshop</button>
+    <button class="filter-btn" data-filter="happywe">HappyWe</button>
+    <button class="filter-btn" data-filter="koonlin">Koonlin</button>
+    <button class="filter-btn" data-filter="urban">Urban Tradewell</button>
+    <button class="filter-btn" data-filter="personal">Personal</button>
+  </div>
+
+  <div class="gallery-grid" id="gallery-grid">
+
+    <div class="gallery-item reveal" data-client="chuables" data-title="Brand Package" data-images='["","",""]'>
+      <div class="gallery-placeholder square">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Add images
+      </div>
+      <div class="gallery-overlay">
+        <div class="gallery-item-title">Brand Package</div>
+        <div class="gallery-item-client">Chuables Bakeshop</div>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal" data-client="chuables" data-title="Menu Design" data-images='[""]'>
+      <div class="gallery-placeholder wide">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Add image
+      </div>
+      <div class="gallery-overlay">
+        <div class="gallery-item-title">Menu Design</div>
+        <div class="gallery-item-client">Chuables Bakeshop</div>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal" data-client="chuables" data-title="Social Media Posts" data-images='["",""]'>
+      <div class="gallery-placeholder tall">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Add images
+      </div>
+      <div class="gallery-overlay">
+        <div class="gallery-item-title">Social Media Posts</div>
+        <div class="gallery-item-client">Chuables Bakeshop</div>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal" data-client="happywe" data-title="Brand Identity" data-images='["","",""]'>
+      <div class="gallery-placeholder">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Add images
+      </div>
+      <div class="gallery-overlay">
+        <div class="gallery-item-title">Brand Identity</div>
+        <div class="gallery-item-client">HappyWe</div>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal" data-client="happywe" data-title="Promotional Material" data-images='[""]'>
+      <div class="gallery-placeholder tall">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Add image
+      </div>
+      <div class="gallery-overlay">
+        <div class="gallery-item-title">Promotional Material</div>
+        <div class="gallery-item-client">HappyWe</div>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal" data-client="koonlin" data-title="Visual Assets" data-images='["",""]'>
+      <div class="gallery-placeholder square">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Add images
+      </div>
+      <div class="gallery-overlay">
+        <div class="gallery-item-title">Visual Assets</div>
+        <div class="gallery-item-client">Koonlin</div>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal" data-client="koonlin" data-title="Graphic Design" data-images='[""]'>
+      <div class="gallery-placeholder wide">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Add image
+      </div>
+      <div class="gallery-overlay">
+        <div class="gallery-item-title">Graphic Design</div>
+        <div class="gallery-item-client">Koonlin</div>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal" data-client="urban" data-title="Corporate Branding" data-images='["","",""]'>
+      <div class="gallery-placeholder">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Add images
+      </div>
+      <div class="gallery-overlay">
+        <div class="gallery-item-title">Corporate Branding</div>
+        <div class="gallery-item-client">Urban Tradewell Corporation</div>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal" data-client="urban" data-title="Internal Visuals" data-images='["",""]'>
+      <div class="gallery-placeholder tall">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Add images
+      </div>
+      <div class="gallery-overlay">
+        <div class="gallery-item-title">Internal Visuals</div>
+        <div class="gallery-item-client">Urban Tradewell Corporation</div>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal" data-client="personal" data-title="Personal Work" data-images='["",""]'>
+      <div class="gallery-placeholder square">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Add images
+      </div>
+      <div class="gallery-overlay">
+        <div class="gallery-item-title">Personal Work</div>
+        <div class="gallery-item-client">Personal</div>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal" data-client="personal" data-title="Design Experiments" data-images='["","",""]'>
+      <div class="gallery-placeholder wide">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Add images
+      </div>
+      <div class="gallery-overlay">
+        <div class="gallery-item-title">Design Experiments</div>
+        <div class="gallery-item-client">Personal</div>
+      </div>
+    </div>
+
+  </div><!-- /gallery-grid -->
+</div><!-- /panel-design -->
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-backdrop" onclick="closeLightboxBtn()"></div>
+  <div class="lightbox-inner">
+    <div class="lightbox-topbar">
+      <div>
+        <div class="lightbox-title" id="lightbox-title"></div>
+        <div class="lightbox-client" id="lightbox-client"></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <span class="lb-counter" id="lb-counter"></span>
+        <button class="lightbox-close" onclick="closeLightboxBtn()">✕ Close</button>
+      </div>
+    </div>
+    <div class="lb-stage">
+      <button class="lb-arrow lb-prev" onclick="lbSlide(-1)">←</button>
+      <div class="lb-img-wrap" id="lb-img-wrap"></div>
+      <button class="lb-arrow lb-next" onclick="lbSlide(1)">→</button>
+    </div>
+    <div class="lb-thumbs" id="lb-thumbs"></div>
+    <div class="lb-card-nav">
+      <button onclick="lbCardNav(-1)">← Prev project</button>
+      <button onclick="lbCardNav(1)">Next project →</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>© 2026 <span>Pierce Crisver D. Calibuso</span> — All rights reserved.</div>
+  <a href="portfolio.html" style="color:var(--w40);text-decoration:none;font-size:0.75rem;">← Back to portfolio</a>
+</footer>
+
+<script>
+  /* ── TABS ── */
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+      observeReveals();
+    });
+  });
+
+  /* ── ACCORDION ── */
+  function toggleDoc(header) {
+    header.parentElement.classList.toggle('open');
+  }
+
+  /* ── MULTI-IMAGE BADGE ── */
+  function injectBadges() {
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      const imgs = getImages(item);
+      if (imgs.length > 1) {
+        const badge = document.createElement('div');
+        badge.className = 'multi-badge';
+        badge.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="15" height="13" rx="1.5"/><path d="M7 4h13a2 2 0 0 1 2 2v11"/></svg> ${imgs.length}`;
+        item.appendChild(badge);
+      }
+    });
+  }
+
+  /* ── FILTER ── */
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.gallery-item').forEach(item => {
+        const show = filter === 'all' || item.dataset.client === filter;
+        item.style.display = show ? '' : 'none';
+      });
+    });
+  });
+
+  /* ── GALLERY click ── */
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('click', () => { openLightbox(item, 0); });
+  });
+
+  /* ── LIGHTBOX ── */
+  let activeCard = null;
+  let activeSlide = 0;
+
+  function getImages(item) {
+    try { return JSON.parse(item.dataset.images || '[]').filter(Boolean); }
+    catch { return []; }
+  }
+
+  function getVisibleCards() {
+    return Array.from(document.querySelectorAll('.gallery-item')).filter(el => el.style.display !== 'none');
+  }
+
+  function openLightbox(item, slideIdx) {
+    activeCard  = item;
+    activeSlide = slideIdx || 0;
+    renderLightbox();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function renderLightbox() {
+    const imgs   = getImages(activeCard);
+    const title  = activeCard.dataset.title;
+    const client = activeCard.querySelector('.gallery-item-client').textContent;
+    const total  = imgs.length;
+    document.getElementById('lightbox-title').textContent  = title;
+    document.getElementById('lightbox-client').textContent = client;
+    const counter = document.getElementById('lb-counter');
+    counter.textContent = total > 1 ? `${activeSlide + 1} / ${total}` : '';
+    const wrap = document.getElementById('lb-img-wrap');
+    if (imgs.length && imgs[activeSlide]) {
+      wrap.innerHTML = `<img class="lb-img" src="${imgs[activeSlide]}" alt="${title} — image ${activeSlide + 1}" />`;
+    } else {
+      wrap.innerHTML = `<div class="lightbox-placeholder"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg><span>Slot ${activeSlide + 1} — add your image URL to data-images</span></div>`;
+    }
+    document.querySelector('.lb-prev').style.display = total > 1 ? '' : 'none';
+    document.querySelector('.lb-next').style.display = total > 1 ? '' : 'none';
+    const thumbs = document.getElementById('lb-thumbs');
+    if (total > 1) {
+      thumbs.innerHTML = imgs.map((src, i) => {
+        const cls = i === activeSlide ? 'lb-thumb active' : 'lb-thumb';
+        return src
+          ? `<img class="${cls}" src="${src}" alt="thumb ${i+1}" onclick="lbGoSlide(${i})" />`
+          : `<div class="${cls} lb-thumb-empty" onclick="lbGoSlide(${i})">${i+1}</div>`;
+      }).join('');
+      thumbs.style.display = 'flex';
+    } else {
+      thumbs.innerHTML = '';
+      thumbs.style.display = 'none';
+    }
+  }
+
+  function lbSlide(dir) {
+    const imgs = getImages(activeCard);
+    activeSlide = (activeSlide + dir + imgs.length) % imgs.length;
+    renderLightbox();
+  }
+
+  function lbGoSlide(i) { activeSlide = i; renderLightbox(); }
+
+  function lbCardNav(dir) {
+    const cards = getVisibleCards();
+    const idx   = cards.indexOf(activeCard);
+    openLightbox(cards[(idx + dir + cards.length) % cards.length], 0);
+  }
+
+  function closeLightboxBtn() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape')     closeLightboxBtn();
+    if (e.key === 'ArrowRight') lbSlide(1);
+    if (e.key === 'ArrowLeft')  lbSlide(-1);
+  });
+
+  /* ── SCROLL REVEAL ── */
+  function observeReveals() {
+    const reveals = document.querySelectorAll('.reveal:not(.visible)');
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      }),
+      { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
+    );
+    reveals.forEach(el => obs.observe(el));
+  }
+  observeReveals();
+  injectBadges();
+</script>
+
+</body>
+</html>
